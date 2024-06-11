@@ -1,11 +1,36 @@
 "use client";
+import { Divider, Layout } from "antd";
 import { ConnectWallet } from "@thirdweb-dev/react";
+import "antd/dist/reset.css";
+
+const { Header, Footer, Content } = Layout;
 
 export default function SiteLayout({ children }) {
   return (
-    <div>
-      <header>
-        <h1>ThreeTube</h1>
+    <Layout style={{ minHeight: "100vh" }}>
+      <Header
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 99,
+          padding: 0,
+          color: "#000",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          borderRadius: "5px",
+          background: "#fff"
+        }}
+      >
+        <h3
+          style={{
+            margin: 0,
+            padding: "0 0px",
+            fontWeight: "bold"
+          }}
+        >
+          ThreeTube
+        </h3>
         <ConnectWallet
           style={{ marginRight: "10px" }}
           theme={"dark"} // light | dark
@@ -15,11 +40,30 @@ export default function SiteLayout({ children }) {
           termsOfServiceUrl="https://example.com/terms"
           privacyPolicyUrl="https://example.com/privacy"
         />
-      </header>
-      <main>{children}</main>
-      <footer>
-        <p>Footer</p>
-      </footer>
-    </div>
+      </Header>
+      <Content
+        style={{
+          margin: "12px 8px",
+          padding: 12,
+          minHeight: "100%",
+          color: "black",
+          maxHeight: "100%"
+        }}
+      >
+        {children}
+      </Content>
+      <Divider plain />
+      <Footer style={{ textAlign: "center" }}>
+        <a
+          href="https://github.com/Salmandabbakuti"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ©{new Date().getFullYear()} Salman Dabbakuti. Powered by ZKSync &
+          TheGraph
+        </a>
+        <p style={{ fontSize: "12px" }}>v0.0.1</p>
+      </Footer>
+    </Layout>
   );
 }
