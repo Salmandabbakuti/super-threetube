@@ -1,0 +1,29 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ThreeTube
+    network: zksync-era-sepolia
+    source:
+      address: "0xaf537775c1Cde9C7AeE142a79bd1b562fe81Acef"
+      abi: ThreeTube
+      startBlock: 2817993
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - VideoAdded
+        - VideoTipped
+      abis:
+        - name: ThreeTube
+          file: ./abis/ThreeTube.json
+      eventHandlers:
+        - event: VideoAdded(uint256,string,string,string,string,string,string,address,uint256)
+          handler: handleVideoAdded
+        - event: VideoTipped(uint256,uint256,uint256,address)
+          handler: handleVideoTipped
+      file: ./src/three-tube.ts
