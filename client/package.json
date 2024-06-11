@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ethersproject/contracts": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@irys/sdk": "^0.2.2",
     "@thirdweb-dev/chains": "^0.1.116",
     "@thirdweb-dev/react": "^4.6.31",
     "next": "14.2.3",
