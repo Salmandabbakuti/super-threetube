@@ -79,7 +79,7 @@ export default function UploadDrawer() {
           >
             <Input
               type="file"
-              accept="video/*"
+              accept="audio/*, video/*"
               onChange={(e) => {
                 console.log("video", e.target.files[0]);
                 setVideoFileInput(e.target.files[0]);
@@ -124,9 +124,18 @@ export default function UploadDrawer() {
               rules={[{ required: true, message: "Please select a category" }]}
             >
               <Select placeholder="Select a category">
-                <Select.Option value="music">Music</Select.Option>
-                <Select.Option value="gaming">Gaming</Select.Option>
-                <Select.Option value="education">Education</Select.Option>
+                <Select.Option value="Music">Music</Select.Option>
+                <Select.Option value="Gaming">Gaming</Select.Option>
+                <Select.Option value="Education">Education</Select.Option>
+                <Select.Option value="News">News</Select.Option>
+                <Select.Option value="Entertainment">
+                  Entertainment
+                </Select.Option>
+                <Select.Option value="Technology">Technology</Select.Option>
+                <Select.Option value="Lifestyle">Lifestyle</Select.Option>
+                <Select.Option value="Travel">Travel</Select.Option>
+                <Select.Option value="Food">Food</Select.Option>
+                <Select.Option value="Health">Health</Select.Option>
               </Select>
             </Form.Item>
           </Space>

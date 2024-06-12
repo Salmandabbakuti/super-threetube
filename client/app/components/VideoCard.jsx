@@ -16,8 +16,8 @@ export default function VideoCard({ video }) {
       cover={
         <Image
           preview={false}
-          alt={video.title}
-          src={`https://ipfs.io/ipfs/${video.thumbnailHash}`}
+          alt={video?.title}
+          src={`https://ipfs.io/ipfs/${video?.thumbnailHash}`}
           className={styles.thumbnail}
         />
       }
@@ -27,27 +27,29 @@ export default function VideoCard({ video }) {
         avatar={
           <Avatar
             size="large"
-            src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${video.channel.id}`}
+            src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${video?.channel?.id}`}
           />
         }
         title={
           <div className={styles.metaTitle}>
             <Title level={5} className={styles.title}>
-              {video.title}
+              {video?.title}
             </Title>
           </div>
         }
         description={
           <div>
             <Text className={styles.text}>
-              {video.channel.id.slice(0, 9) +
+              {video?.channel?.id?.slice(0, 9) +
                 "..." +
-                video.channel.id.slice(-5) +
+                video?.channel?.id?.slice(-5) +
                 " "}
               <CheckCircleOutlined className={styles.checkIcon} />
             </Text>
             <Text className={styles.text}>
-              {video.category + " • " + dayjs(video.createdAt * 1000).fromNow()}
+              {video?.category +
+                " • " +
+                dayjs(video?.createdAt * 1000).fromNow()}
             </Text>
           </div>
         }

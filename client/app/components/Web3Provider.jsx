@@ -26,7 +26,7 @@ export default function Web3Provider({ children }) {
   return (
     <ThirdwebProvider
       activeChain={Sepolia}
-      supportedChains={[Sepolia, Zksync]}
+      supportedChains={[Sepolia, Ethereum]}
       supportedWallets={supportedWallets}
       autoConnect={true}
       clientId={clientId}

@@ -30,7 +30,7 @@ export default function Home() {
       .then((data) => {
         // duplicate first 1 video to 12 videos to simulate pagination
         data.videos = Array.from({ length: 12 }).map(() => data.videos[0]);
-        setVideos(data.videos);
+        setVideos(data?.videos);
         setLoading(false);
       })
       .catch((error) => {
@@ -65,8 +65,8 @@ export default function Home() {
               </Col>
             ))
           : videos.map((video) => (
-              <Col key={video.id} xs={24} sm={12} md={8} lg={6}>
-                <Link href={`/watch/${video.id}`}>
+              <Col key={video?.id} xs={24} sm={12} md={8} lg={6}>
+                <Link href={`/watch/${video?.id}`}>
                   <VideoCard video={video} />
                 </Link>
               </Col>

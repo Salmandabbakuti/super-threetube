@@ -165,7 +165,10 @@ export default function VideoPage({ params: { id } }) {
                 </Card>
               ))
             : relatedVideos.map((relatedVideo) => (
-                <Link key={relatedVideo.id} href={`/watch/${relatedVideo.id}`}>
+                <Link
+                  key={relatedVideo?.id}
+                  href={`/watch/${relatedVideo?.id}`}
+                >
                   <VideoCard video={relatedVideo} />
                 </Link>
               ))}
