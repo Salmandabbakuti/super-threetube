@@ -12,6 +12,7 @@ import {
 } from "antd";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import Link from "next/link";
 import { subgraphClient as client, GET_VIDEOS_QUERY } from "@/app/utils";
 import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
@@ -38,12 +39,12 @@ export default function VideoPage({ params: { id } }) {
         // duplicate first 1 video to 5 videos to simulate related videos
         data.videos = Array.from({ length: 5 }).map(() => data.videos[0]);
         setRelatedVideos(data?.videos);
-        setLoading(false);
+        // setLoading(false);
       })
       .catch((error) => {
         console.error(error);
         message.error("Failed to fetch video. Please try again.");
-        setLoading(false);
+        // setLoading(false);
       });
   };
 
@@ -61,12 +62,12 @@ export default function VideoPage({ params: { id } }) {
       })
       .then((data) => {
         setRelatedVideos(data?.videos);
-        setLoading(false);
+        // setLoading(false);
       })
       .catch((error) => {
         console.error(error);
         message.error("Failed to fetch related videos. Please try again.");
-        setLoading(false);
+        // setLoading(false);
       });
   };
 
@@ -79,55 +80,92 @@ export default function VideoPage({ params: { id } }) {
     <div style={{ padding: "20px" }}>
       <Row gutter={[16, 16]}>
         <Col xs={24} md={16}>
-          <Plyr
-            style={{ borderRadius: "20px" }}
-            autoPlay
-            controls
-            source={{
-              type: "video",
-              sources: [
-                {
-                  src: `https://ipfs.io/ipfs/${video?.videoHash}`,
-                  type: "video/mp4"
-                }
-              ]
-            }}
-          />
-          <Title level={2}>{video?.title}</Title>
-          <Paragraph level={3} type="primary">
-            {video?.category +
-              " • " +
-              new Date(video?.createdAt * 1000).toLocaleString("en-IN") +
-              " • " +
-              video?.location}
-          </Paragraph>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "10px"
-            }}
-          >
-            <Avatar
-              size="large"
-              src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${video?.channel?.id}`}
+          {loading ? (
+            <Card
+              loading
+              style={{ borderRadius: "20px" }}
+              cover={
+                <div
+                  style={{
+                    height: 400,
+                    borderRadius: 20
+                  }}
+                />
+              }
             />
-            <div style={{ marginLeft: "10px" }}>
-              <Text>{video?.channel?.id}</Text>
-              <br />
-              <Text type="secondary">
-                {dayjs(video?.createdAt * 1000).fromNow()}
-              </Text>
-            </div>
-          </div>
-          <Text>{video?.description}</Text>
+          ) : (
+            <>
+              <Plyr
+                style={{ borderRadius: "20px" }}
+                autoPlay
+                controls
+                source={{
+                  type: "video",
+                  sources: [
+                    {
+                      src: `https://ipfs.io/ipfs/${video?.videoHash}`,
+                      type: "video/mp4"
+                    }
+                  ]
+                }}
+              />
+              <Title level={2}>{video?.title}</Title>
+              <Paragraph level={3} type="primary">
+                {video?.category +
+                  " • " +
+                  new Date(video?.createdAt * 1000).toLocaleString("en-IN") +
+                  " • " +
+                  video?.location}
+              </Paragraph>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "10px"
+                }}
+              >
+                <Avatar
+                  size="large"
+                  src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${video?.channel?.id}`}
+                />
+                <div style={{ marginLeft: "10px" }}>
+                  <Text>{video?.channel?.id}</Text>
+                  <br />
+                  <Text type="secondary">
+                    {dayjs(video?.createdAt * 1000).fromNow()}
+                  </Text>
+                </div>
+              </div>
+              <Text>{video?.description}</Text>
+            </>
+          )}
           <Divider plain />
         </Col>
         <Col xs={24} md={8}>
           <Title level={4}>Related Videos</Title>
-          {relatedVideos.map((relatedVideo) => (
-            <VideoCard key={relatedVideo.id} video={relatedVideo} />
-          ))}
+          {loading
+            ? Array.from({ length: 5 }).map((_, index) => (
+                <Card
+                  key={index}
+                  loading
+                  style={{ borderRadius: 20 }}
+                  cover={
+                    <div
+                      style={{
+                        height: 150,
+                        borderRadius: 20
+                      }}
+                    />
+                  }
+                >
+                  <Card.Meta avatar={<Skeleton.Avatar />} />
+                </Card>
+              ))
+            : relatedVideos.map((relatedVideo) => (
+                <Link key={relatedVideo.id} href={`/watch/${relatedVideo.id}`}>
+                  <VideoCard video={relatedVideo} />
+                </Link>
+              ))}
         </Col>
       </Row>
     </div>

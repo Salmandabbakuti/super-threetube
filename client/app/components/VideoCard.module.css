@@ -1,6 +1,7 @@
 .card {
   width: 100%;
   max-width: 450px;
+  margin-bottom: 10px;
 }
 
 .thumbnail {

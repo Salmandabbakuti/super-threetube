@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.7",
     "@ethersproject/contracts": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "@irys/sdk": "^0.2.2",
     "@thirdweb-dev/chains": "^0.1.116",
     "@thirdweb-dev/react": "^4.6.31",
+    "antd": "^5.18.1",
+    "dayjs": "^1.11.11",
     "graphql": "^16.8.1",
     "graphql-request": "^7.0.1",
     "next": "14.2.3",

@@ -1,9 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import { message, Row, Col, Card, Avatar } from "antd";
-import styles from "./page.module.css";
+import { message, Row, Col, Card } from "antd";
+import Link from "next/link";
 import { subgraphClient as client, GET_VIDEOS_QUERY } from "./utils";
 import VideoCard from "./components/VideoCard";
+import styles from "./page.module.css";
 
 export default function Home() {
   const [videos, setVideos] = useState([]);
@@ -28,7 +29,7 @@ export default function Home() {
       })
       .then((data) => {
         // duplicate first 1 video to 12 videos to simulate pagination
-        data.videos = Array.from({ length: 2 }).map(() => data.videos[0]);
+        data.videos = Array.from({ length: 12 }).map(() => data.videos[0]);
         setVideos(data.videos);
         setLoading(false);
       })
@@ -60,14 +61,14 @@ export default function Home() {
                       }}
                     />
                   }
-                >
-                  <Card.Meta avatar={<Avatar />} />
-                </Card>
+                />
               </Col>
             ))
           : videos.map((video) => (
               <Col key={video.id} xs={24} sm={12} md={8} lg={6}>
-                <VideoCard video={video} />
+                <Link href={`/watch/${video.id}`}>
+                  <VideoCard video={video} />
+                </Link>
               </Col>
             ))}
       </Row>
