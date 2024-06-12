@@ -1,42 +1,66 @@
-# zkSync Hardhat project template
+# Hardhat Boilerplate(Minimal)
 
-This project was scaffolded with [zksync-cli](https://github.com/matter-labs/zksync-cli).
+This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts with balances.
 
-## Project Layout
+## Getting Started
 
-- `/contracts`: Contains solidity smart contracts.
-- `/deploy`: Scripts for contract deployment and interaction.
-- `hardhat.config.ts`: Configuration settings.
+> Recommended to use Node.js v18+ and npm v8+
 
-## How to Use
+> Copy `.env.example` to `.env` and update the values as needed
 
-- `npm run compile`: Compiles contracts.
-- `npm run deploy`: Deploys using script `/deploy/deploy.ts`.
+Try running some of the following tasks:
 
-Note: `npm run deploy` is set in the `package.json`. You can also run your files directly, for example: `npx hardhat deploy-zksync --script deploy.ts`
+```bash
+npm install
 
-### Environment Settings
+# starts local node
+npx hardhat node
 
-To keep private keys safe, this project pulls in environment variables from `.env` files. Primarily, it fetches the wallet's private key.
+# compile contracts
+npx hardhat compile
 
-Rename `.env.example` to `.env` and fill in your private key:
+# deploy contract in scripts/deploy.ts on specified network
+npx hardhat run scripts/deploy.ts --network localhost
 
+# verify contract
+npx hardhat verify --network <deployed network> <deployed contract address> "<constructor1>" "<constructor2>"
+
+# check coverage using solidity-coverage plugin: supports hardhat network only
+npx hardhat coverage --network hardhat
+
+# unit tests including gas usage
+npx hardhat test
+
+# remove all compiled and deployed artifacts
+npx hardhat clean
+
+# show help
+npx hardhat help
 ```
-WALLET_PRIVATE_KEY=your_private_key_here...
-```
 
-### Network Support
+## Change Log
 
-`hardhat.config.ts` comes with a list of networks to deploy and test contracts. Add more by adjusting the `networks` section in the `hardhat.config.ts`. To make a network the default, set the `defaultNetwork` to its name. You can also override the default using the `--network` option, like: `hardhat test --network dockerizedNode`.
+#### v1.2.3
 
-## Useful Links
+- Replaced deprecated mumbai network with amoy network in `hardhat.config.ts`
+- Compiler version updated to `0.8.24`
+- Hardhat deps update
+- Generalized `deploy.ts` script for any contract with minimal changes
+- README.md sections update
 
-- [Docs](https://era.zksync.io/docs/dev/)
-- [Official Site](https://zksync.io/)
-- [GitHub](https://github.com/matter-labs)
-- [Twitter](https://twitter.com/zksync)
-- [Discord](https://join.zksync.dev/)
+## References
+
+- [Hardhat](https://hardhat.org/)
+- [Hardhat Docs](https://hardhat.org/getting-started/)
+- [Ethers.js](https://docs.ethers.io/v5/)
+- [Solidity](https://docs.soliditylang.org/en/v0.8.25/)
+
+## Safety
+
+This is experimental software and subject to change over time.
+
+This is a proof of concept and is not ready for production use. It is not audited and has not been tested for security. Use at your own risk. I do not give any warranties and will not be liable for any loss incurred through any use of this codebase.
 
 ## License
 
-This project is under the [MIT](./LICENSE) license.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

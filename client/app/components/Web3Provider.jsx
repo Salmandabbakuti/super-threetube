@@ -8,7 +8,7 @@ import {
   rainbowWallet,
   trustWallet
 } from "@thirdweb-dev/react";
-import { ZksyncSepoliaTestnet, Zksync } from "@thirdweb-dev/chains";
+import { Sepolia, Ethereum } from "@thirdweb-dev/chains";
 
 const supportedWallets = [
   metamaskWallet({ recommended: true }),
@@ -25,8 +25,8 @@ export default function Web3Provider({ children }) {
 
   return (
     <ThirdwebProvider
-      activeChain={ZksyncSepoliaTestnet}
-      supportedChains={[ZksyncSepoliaTestnet, Zksync]}
+      activeChain={Sepolia}
+      supportedChains={[Sepolia, Zksync]}
       supportedWallets={supportedWallets}
       autoConnect={true}
       clientId={clientId}
