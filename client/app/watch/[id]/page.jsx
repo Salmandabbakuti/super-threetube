@@ -16,7 +16,7 @@ import Link from "next/link";
 import { subgraphClient as client, GET_VIDEOS_QUERY } from "@/app/utils";
 import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
-import VideoCard from "@/app/components/VideoCard"; // Assuming VideoCard is already created and exported from the specified path
+import VideoCard from "@/app/components/VideoCard";
 
 const { Title, Text, Paragraph } = Typography;
 dayjs.extend(relativeTime);
@@ -98,6 +98,9 @@ export default function VideoPage({ params: { id } }) {
               <Plyr
                 style={{ borderRadius: "20px" }}
                 autoPlay
+                options={{
+                  autoplay: true
+                }}
                 controls
                 source={{
                   type: "video",
