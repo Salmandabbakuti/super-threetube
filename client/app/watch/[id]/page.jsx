@@ -1,6 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
-import { message, Row, Col, Card, Avatar, Typography, Skeleton } from "antd";
+import {
+  message,
+  Row,
+  Col,
+  Card,
+  Avatar,
+  Typography,
+  Skeleton,
+  Divider
+} from "antd";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { subgraphClient as client, GET_VIDEOS_QUERY } from "@/app/utils";
@@ -112,6 +121,7 @@ export default function VideoPage({ params: { id } }) {
             </div>
           </div>
           <Text>{video?.description}</Text>
+          <Divider plain />
         </Col>
         <Col xs={24} md={8}>
           <Title level={4}>Related Videos</Title>
