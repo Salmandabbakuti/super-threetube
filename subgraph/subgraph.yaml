@@ -8,9 +8,9 @@ dataSources:
     name: ThreeTube
     network: zksync-era-sepolia
     source:
-      address: "0xaf537775c1Cde9C7AeE142a79bd1b562fe81Acef"
+      address: "0xdFDDbCa39CAf63ab04A75cB0f75356c50C757B8b"
       abi: ThreeTube
-      startBlock: 2817993
+      startBlock: 2824304
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

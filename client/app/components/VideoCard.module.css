@@ -1,0 +1,27 @@
+.card {
+  width: 100%;
+  max-width: 450px;
+}
+
+.thumbnail {
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.metaTitle {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  margin-right: 8px;
+}
+
+.text {
+  display: block;
+  color: #888;
+}
+
+.checkIcon {
+  color: green;
+}
