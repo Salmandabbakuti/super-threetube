@@ -1,6 +1,5 @@
 "use client";
-
-import { Layout, Input } from "antd";
+import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import UserDrawer from "./UserDrawer";
 import UploadDrawer from "./UploadDrawer";
