@@ -19,12 +19,13 @@ export default function UploadDrawer() {
     console.log("values", values);
     console.log("thumbnail", thumbnailFileInput);
     console.log("video", videoFileInput);
-
+    if (!signer) return message.error("Please connect your wallet first");
     if (!thumbnailFileInput || !videoFileInput) {
       message.error("Please upload a video and thumbnail");
       return;
     }
     setLoading(true);
+    message.info("Uploading video and thumbnail to IPFS");
     const [videoHash, thumbnailHash] = await upload({
       data: [videoFileInput, thumbnailFileInput]
     });
@@ -33,6 +34,8 @@ export default function UploadDrawer() {
     const videoCID = videoHash.split("://")[1];
     console.log("thumbnailCID", thumbnailCID);
     console.log("videoCID", videoCID);
+    message.success("Thumbnail and video are uploaded to IPFS");
+    message.info("Adding video info to the contract");
     try {
       const tx = await contract
         .connect(signer)
