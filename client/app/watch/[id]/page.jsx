@@ -39,12 +39,12 @@ export default function VideoPage({ params: { id } }) {
         // duplicate first 1 video to 5 videos to simulate related videos
         data.videos = Array.from({ length: 5 }).map(() => data.videos[0]);
         setRelatedVideos(data?.videos);
-        // setLoading(false);
+        setLoading(false);
       })
       .catch((error) => {
         console.error(error);
         message.error("Failed to fetch video. Please try again.");
-        // setLoading(false);
+        setLoading(false);
       });
   };
 
@@ -62,12 +62,12 @@ export default function VideoPage({ params: { id } }) {
       })
       .then((data) => {
         setRelatedVideos(data?.videos);
-        // setLoading(false);
+        setLoading(false);
       })
       .catch((error) => {
         console.error(error);
         message.error("Failed to fetch related videos. Please try again.");
-        // setLoading(false);
+        setLoading(false);
       });
   };
 
