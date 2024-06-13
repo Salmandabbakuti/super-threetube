@@ -1,7 +1,7 @@
 "use client";
-import { Input } from "antd";
+import { Input, Button } from "antd";
 import Link from "next/link";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, PlayCircleTwoTone } from "@ant-design/icons";
 import UserDrawer from "./UserDrawer";
 import UploadDrawer from "./UploadDrawer";
 import "antd/dist/reset.css";
@@ -14,12 +14,21 @@ export default function NavBar({ searchInput }) {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "10px",
-            padding: "0 20px"
+            gap: "2px",
+            padding: "0 10px"
           }}
         >
           {/* Logo */}
-          <img src="/path/to/logo.png" alt="Logo" style={{ height: 40 }} />
+          <Button
+            size="large"
+            icon={<PlayCircleTwoTone twoToneColor="blue" />}
+            type="text"
+            shape="circle"
+            style={{
+              padding: 0,
+              fontWeight: "bold"
+            }}
+          />
           {/* Title */}
           <h3 style={{ margin: 0, fontWeight: "bold" }}>ThreeTube</h3>
         </div>

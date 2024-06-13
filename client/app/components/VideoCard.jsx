@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Avatar, Typography, Image } from "antd";
-import { CheckCircleOutlined } from "@ant-design/icons";
+import { CheckCircleTwoTone } from "@ant-design/icons";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import styles from "./VideoCard.module.css";
@@ -12,6 +12,7 @@ const { Title, Text } = Typography;
 export default function VideoCard({ video }) {
   return (
     <Card
+      style={{ borderRadius: 20 }}
       hoverable
       cover={
         <Image
@@ -19,6 +20,7 @@ export default function VideoCard({ video }) {
           alt={video?.title}
           src={`https://ipfs.io/ipfs/${video?.thumbnailHash}`}
           className={styles.thumbnail}
+          style={{ minHeight: 200, maxHeight: 200 }}
         />
       }
       className={styles.card}
@@ -44,7 +46,7 @@ export default function VideoCard({ video }) {
                 "..." +
                 video?.channel?.id?.slice(-5) +
                 " "}
-              <CheckCircleOutlined className={styles.checkIcon} />
+              <CheckCircleTwoTone twoToneColor="#52c41a" />
             </Text>
             <Text className={styles.text}>
               {video?.category +
