@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: ThreeTube
-    network: sepolia
+    network: scroll-sepolia
     source:
-      address: "0xDcd83C8bFd6222375EC5E63d000896eAeFC2ecab"
+      address: "0x62862E40B26281130B7a32dbF682ac56a0201f0A"
       abi: ThreeTube
-      startBlock: 6091875
+      startBlock: 4626748
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

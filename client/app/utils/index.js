@@ -6,7 +6,7 @@ const abi = [
   "function addVideo(string _title, string _description, string _category, string _location, string _thumbnailHash, string _videoHash)",
   "function tipVideo(uint256 _videoId, uint256 _amount) payable"
 ]; // ABI of the contract
-const address = "0xDcd83C8bFd6222375EC5E63d000896eAeFC2ecab"; // Address of the contract
+const address = "0x62862E40B26281130B7a32dbF682ac56a0201f0A"; // Address of the contract scroll sepolia
 
 export const contract = new Contract(address, abi);
 
