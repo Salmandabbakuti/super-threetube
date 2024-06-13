@@ -1,59 +1,85 @@
-# Hardhat Boilerplate(Minimal)
+# Super ThreeTube
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts with balances.
+Welcome to ThreeTube, a decentralized Ad-free video sharing platform where creators can share their content and viewers can directly support them through tips. By leveraging the Superfluid protocol, ThreeTube introduces an innovative way of supporting content creators through real-time token streaming, offering a seamless and continuous monetization experience. ThreeTube ensures that content ownership and monetization remain in the hands of creators.
+
+### Features
+
+- **Real-Time Tipping with Superfluid**: Integrate Superfluid for tipping, allowing viewers to stream money in real-time as they enjoy the content. This innovative approach ensures creators are continuously supported without delays.
+
+- **Superfluid Subscriptions**: Future integration will allow viewers to subscribe to their favorite creators on a monthly basis to access premium content, providing consistent support through Superfluid's subscription model.
+
+- **Decentralized Video Storage**: Videos are stored on IPFS, a decentralized storage network, ensuring that content remains online and accessible.
+
+- **Ad-Free Experience**: No ads, no tracking, and no data collection. Enjoy a clean and private viewing experience.
+
+- **Creator Profiles**: Unique profiles for each creator, showcasing their videos and receiving tips.
+- **Browsing and Searching**: Browse and search for videos by various categories, creator, or title.
 
 ## Getting Started
 
-> Recommended to use Node.js v18+ and npm v8+
+### 1. Deploying the Smart Contracts
 
-> Copy `.env.example` to `.env` and update the values as needed
+This project is scaffolded using [hardhat](). Please refer to the documentation for more information on folder structure and configuration.
 
-Try running some of the following tasks:
+> Copy the `.env.example` file to `.env` and update the environment variables with your own values.
 
 ```bash
+
 npm install
 
-# starts local node
-npx hardhat node
-
-# compile contracts
 npx hardhat compile
 
-# deploy contract in scripts/deploy.ts on specified network
-npx hardhat run scripts/deploy.ts --network localhost
+npx hardhat run scripts/deploy.ts --network scrollSepolia
 
-# verify contract
-npx hardhat verify --network <deployed network> <deployed contract address> "<constructor1>" "<constructor2>"
-
-# check coverage using solidity-coverage plugin: supports hardhat network only
-npx hardhat coverage --network hardhat
-
-# unit tests including gas usage
-npx hardhat test
-
-# remove all compiled and deployed artifacts
-npx hardhat clean
-
-# show help
-npx hardhat help
 ```
 
-## Change Log
+2. Deploying the Subgraph
 
-#### v1.2.3
+> Create new subgraph in TheGraph studio and update package.json `deploy` script with your subgraph id. Update `subgraph/subgraph.yaml` with your contract address and block number.
 
-- Replaced deprecated mumbai network with amoy network in `hardhat.config.ts`
-- Compiler version updated to `0.8.24`
-- Hardhat deps update
-- Generalized `deploy.ts` script for any contract with minimal changes
-- README.md sections update
+```bash
+cd subgraph
 
-## References
+npm install
 
-- [Hardhat](https://hardhat.org/)
-- [Hardhat Docs](https://hardhat.org/getting-started/)
-- [Ethers.js](https://docs.ethers.io/v5/)
-- [Solidity](https://docs.soliditylang.org/en/v0.8.25/)
+npm run deploy
+```
+
+### 3. Running the Frontend
+
+> Copy the `.env.example` file to `.env` and update the environment variables with your own values. Update `client/utils/constants.ts` with your contract address and subgraph url.
+
+```bash
+cd client
+
+npm install
+
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+### Deployed Resources
+
+- [ThreeTube Contract](https://sepolia.scrollscan.com/address/0x62862e40b26281130b7a32dbf682ac56a0201f0a)
+- [ThreeTube Subgraph](https://api.studio.thegraph.com/query/15343/3tube-sepolia/version/latest)
+- [Client App](https://example.com/)
+
+### Demo
+
+![Screen1](https://github.com/Salmandabbakuti/sf-socilafi-wavehack/assets/29351207/95361b5b-fe0d-4964-ae8a-73290406fd64)
+
+![Screen2](https://github.com/Salmandabbakuti/sf-socilafi-wavehack/assets/29351207/fb6c0219-6726-42d1-8fe4-6360c7bf0a5b)
+
+## Built With
+
+- [Scroll Blockchain](https://scroll.io/) - A decentralized, privacy-focused blockchain that enables scalable, low-cost, and private transactions. Seamlessly extends Ethereum’s capabilities through zero knowledge tech and EVM compatibility.
+- [Third Web](https://thirdweb.com) - Full-stack, open-source web3 development platform. Frontend, backend, and onchain tools to build complete web3 apps — on every EVM chain.
+- [IPFS](https://ipfs.io/) - A peer-to-peer hypermedia protocol and file sharing peer-to-peer network for storing and sharing data in a distributed file system.
+- [Ethers.js](https://docs.ethers.io/v5/) - A complete and compact library for interacting with the Ethereum Blockchain and its ecosystem
+- [The Graph](https://thegraph.com/) - an indexing protocol for organizing and accessing data from blockchains and storage networks.
+- [Next.js](https://nextjs.org/) - The React Framework for Production.
+- [Antd](https://ant.design/) - A design system for enterprise-level products. Create an efficient and enjoyable work experience.
 
 ## Safety
 
