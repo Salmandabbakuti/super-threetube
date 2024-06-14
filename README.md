@@ -2,6 +2,8 @@
 
 Welcome to ThreeTube, a decentralized Ad-free video sharing platform where creators can share their content and viewers can directly support them through tips. By leveraging the Superfluid protocol, ThreeTube introduces an innovative way of supporting content creators through real-time token streaming, offering a seamless and continuous monetization experience. ThreeTube ensures that content ownership and monetization remain in the hands of creators.
 
+- **The code related to the Superfluid integration for tipping and supporting content creators can be found at https://github.com/Salmandabbakuti/sf-socilafi-wavehack/blob/main/client/app/watch/%5Bid%5D/page.jsx#L92**
+
 ### Features
 
 - **Real-Time Tipping with Superfluid**: Integrate Superfluid for tipping, allowing viewers to stream money in real-time as they enjoy the content. This innovative approach ensures creators are continuously supported without delays.
