@@ -1,7 +1,6 @@
 "use client";
-import { useAddress } from "@thirdweb-dev/react";
 import { Layout } from "antd";
-import NavBar from "./NavBar";
+import NavBar from "./Navbar";
 import "antd/dist/reset.css";
 
 const { Header, Footer, Content } = Layout;

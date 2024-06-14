@@ -34,7 +34,6 @@ export default function UserDrawer() {
         width={320}
         onClose={() => setDrawerOpen(false)}
         open={drawerOpen}
-        style={{ paddingBottom: 80 }}
       >
         <Menu
           items={[

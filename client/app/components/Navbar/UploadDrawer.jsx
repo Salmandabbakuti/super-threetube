@@ -1,49 +1,41 @@
-"use client";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Drawer, Form, Input, Select, Space, Button, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useSigner } from "@thirdweb-dev/react";
-import { contract, getIrys } from "@/app/utils";
+import { contract } from "@/app/utils";
 import Image from "next/image";
 import { useStorageUpload } from "@thirdweb-dev/react";
 
 export default function UploadDrawer() {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [thumbnailInput, setThumbnailInput] = useState(null);
-  const [videoInput, setVideoInput] = useState(null);
+  const [thumbnailFileInput, setThumbnailFileInput] = useState(null);
+  const [videoFileInput, setVideoFileInput] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const thumbnailInputRef = useRef(null);
-  const videoInputRef = useRef(null);
   const signer = useSigner();
   const { mutateAsync: upload } = useStorageUpload();
 
   const handleSubmit = async (values) => {
     console.log("values", values);
-    console.log("thumbnail", thumbnailInput);
-    console.log("video", videoInput);
-
-    if (!thumbnailInput || !videoInput) {
+    console.log("thumbnail", thumbnailFileInput);
+    console.log("video", videoFileInput);
+    if (!signer) return message.error("Please connect your wallet first");
+    if (!thumbnailFileInput || !videoFileInput) {
       message.error("Please upload a video and thumbnail");
       return;
     }
-    // const irys = await getIrys(signer.provider);
-
-    // const { id: thumbnailHash } = await irys.uploadFile(thumbnailInput, {});
-    // const { id: videoHash } = await irys.uploadFile(videoInput, {});
-    // console.log("thumbnailHash", thumbnailHash);
-    // console.log("videoHash", videoHash);
-
+    setLoading(true);
+    message.info("Uploading video and thumbnail to IPFS");
     const [videoHash, thumbnailHash] = await upload({
-      data: [videoInput, thumbnailInput]
+      data: [videoFileInput, thumbnailFileInput]
     });
     console.log("uploadRes ->v,t", videoHash, thumbnailHash);
-    // const videoHash = await upload(videoInput);
-    // Upload video and thumbnail to IPFS
-    // Add video to the contract
     const thumbnailCID = thumbnailHash.split("://")[1];
     const videoCID = videoHash.split("://")[1];
     console.log("thumbnailCID", thumbnailCID);
     console.log("videoCID", videoCID);
+    message.success("Thumbnail and video are uploaded to IPFS");
+    message.info("Adding video info to the contract");
     try {
       const tx = await contract
         .connect(signer)
@@ -59,7 +51,9 @@ export default function UploadDrawer() {
       message.success("Video uploaded successfully");
     } catch (error) {
       console.error(error);
-      message.error("Failed to upload video");
+      message.error("Failed to upload video. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,19 +79,18 @@ export default function UploadDrawer() {
           >
             <Input
               type="file"
-              ref={videoInputRef}
-              accept="video/*"
+              accept="video/*, audio/*"
               onChange={(e) => {
                 console.log("video", e.target.files[0]);
-                setVideoInput(e.target.files[0]);
+                setVideoFileInput(e.target.files[0]);
               }}
             />
-            {videoInput && (
+            {videoFileInput && (
               <video
                 width={450}
                 height={200}
                 controls
-                src={URL.createObjectURL(videoInput)}
+                src={URL.createObjectURL(videoFileInput)}
               />
             )}
           </Form.Item>
@@ -130,10 +123,20 @@ export default function UploadDrawer() {
               label="Category"
               rules={[{ required: true, message: "Please select a category" }]}
             >
-              <Select placeholder="Select a category">
-                <Select.Option value="music">Music</Select.Option>
-                <Select.Option value="gaming">Gaming</Select.Option>
-                <Select.Option value="education">Education</Select.Option>
+              <Select placeholder="Select a category" style={{ width: 180 }}>
+                <Select.Option value="Music">Music</Select.Option>
+                <Select.Option value="Gaming">Gaming</Select.Option>
+                <Select.Option value="Education">Education</Select.Option>
+                <Select.Option value="News">News</Select.Option>
+                <Select.Option value="Entertainment">
+                  Entertainment
+                </Select.Option>
+                <Select.Option value="Technology">Technology</Select.Option>
+                <Select.Option value="Lifestyle">Lifestyle</Select.Option>
+                <Select.Option value="Travel">Travel</Select.Option>
+                <Select.Option value="Food">Food</Select.Option>
+                <Select.Option value="Health">Health</Select.Option>
+                <Select.Option value="Other">Other</Select.Option>
               </Select>
             </Form.Item>
           </Space>
@@ -144,16 +147,15 @@ export default function UploadDrawer() {
           >
             <Input
               type="file"
-              ref={thumbnailInputRef}
               accept="image/*"
               onChange={(e) => {
                 console.log("thumbnail", e.target.files[0]);
-                setThumbnailInput(e.target.files[0]);
+                setThumbnailFileInput(e.target.files[0]);
               }}
             />
-            {thumbnailInput && (
+            {thumbnailFileInput && (
               <Image
-                src={URL.createObjectURL(thumbnailInput)}
+                src={URL.createObjectURL(thumbnailFileInput)}
                 alt="Thumbnail"
                 width={450}
                 height={200}
@@ -161,7 +163,7 @@ export default function UploadDrawer() {
             )}
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={loading}>
               Submit
             </Button>
           </Form.Item>

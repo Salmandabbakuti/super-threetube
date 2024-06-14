@@ -4,10 +4,10 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ 3tube",
-    "create-local": "graph create --node http://localhost:8020/ 3tube",
-    "remove-local": "graph remove --node http://localhost:8020/ 3tube",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 3tube",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ 3tube-sepolia",
+    "create-local": "graph create --node http://localhost:8020/ 3tube-sepolia",
+    "remove-local": "graph remove --node http://localhost:8020/ 3tube-sepolia",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 3tube-sepolia",
     "test": "graph test"
   },
   "dependencies": {

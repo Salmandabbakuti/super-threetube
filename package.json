@@ -1,29 +1,19 @@
 {
-  "name": "zksync-hardhat-template",
-  "description": "A template for zkSync smart contracts development with Hardhat",
+  "name": "hardhat-boilerplate-minimal",
+  "version": "1.2.3",
+  "description": "Minimal hardhat boilerplate for dapp development",
   "private": true,
-  "author": "Matter Labs",
-  "license": "MIT",
-  "repository": "https://github.com/matter-labs/zksync-hardhat-template.git",
   "scripts": {
-    "deploy": "hardhat deploy-zksync --script deploy.ts",
-    "compile": "hardhat compile",
-    "clean": "hardhat clean"
+    "test": "npx hardhat test",
+    "compile": "npx hardhat compile",
+    "deploy": "npx hardhat deploy"
   },
+  "keywords": [],
+  "author": "Salman Dabbakuti",
+  "license": "ISC",
   "devDependencies": {
-    "@matterlabs/hardhat-zksync": "^1.0.0",
-    "@matterlabs/zksync-contracts": "^0.6.1",
-    "@nomiclabs/hardhat-etherscan": "^3.1.7",
-    "@openzeppelin/contracts": "^4.6.0",
-    "dotenv": "^16.0.3",
-    "ethers": "^6.9.2",
-    "hardhat": "^2.12.4",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.5",
-    "zksync-ethers": "^6.7.0"
-  },
-  "dependencies": {
-    "@ant-design/icons": "^5.3.7",
-    "antd": "^5.18.0"
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.5",
+    "dotenv": "^16.4.5"
   }
 }

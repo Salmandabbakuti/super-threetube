@@ -1,40 +1,50 @@
 import { HardhatUserConfig } from "hardhat/config";
-import "@matterlabs/hardhat-zksync";
+import "@nomicfoundation/hardhat-toolbox";
+import "dotenv/config";
+
+const accounts = process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [];
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "zkSyncSepoliaTestnet",
+  solidity: "0.8.24",
+  defaultNetwork: "localhost",
   networks: {
-    zkSyncSepoliaTestnet: {
-      url: "https://sepolia.era.zksync.dev",
-      ethNetwork: "sepolia",
-      zksync: true,
-      verifyURL: "https://explorer.sepolia.era.zksync.dev/contract_verification"
+    localhost: {
+      url: "http://127.0.0.1:8545"
     },
-    zkSyncMainnet: {
-      url: "https://mainnet.era.zksync.io",
-      ethNetwork: "mainnet",
-      zksync: true,
-      verifyURL:
-        "https://zksync2-mainnet-explorer.zksync.io/contract_verification"
+    scrollSepolia: {
+      url: "https://sepolia-rpc.scroll.io",
+      chainId: 534351,
+      accounts
     },
-    inMemoryNode: {
-      url: "http://127.0.0.1:8011",
-      ethNetwork: "localhost", // in-memory node doesn't support eth node; removing this line will cause an error
-      zksync: true
-    },
-    hardhat: {
-      zksync: true
+    scroll: {
+      url: "https://rpc.scroll.io",
+      chainId: 534352,
+      accounts
     }
   },
-  zksolc: {
-    version: "latest",
-    settings: {
-      // find all available options in the official documentation
-      // https://era.zksync.io/docs/tools/hardhat/hardhat-zksync-solc.html#configuration
-    }
-  },
-  solidity: {
-    version: "0.8.24"
+  etherscan: {
+    // API key for Polygonscan
+    apiKey: {
+      scrollSepolia: process.env.ETHERSCAN_API_KEY || ""
+    },
+    customChains: [
+      {
+        network: "scrollSepolia",
+        chainId: 534351,
+        urls: {
+          apiURL: "https://api-sepolia.scrollscan.com/api",
+          browserURL: "https://sepolia.scrollscan.com/"
+        }
+      },
+      {
+        network: "scroll",
+        chainId: 534352,
+        urls: {
+          apiURL: "https://api.scrollscan.com/api",
+          browserURL: "https://scrollscan.com/"
+        }
+      }
+    ]
   }
 };
 
