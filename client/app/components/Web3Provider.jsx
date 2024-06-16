@@ -8,7 +8,7 @@ import {
   rainbowWallet,
   trustWallet
 } from "@thirdweb-dev/react";
-import { Scroll, ScrollSepoliaTestnet } from "@thirdweb-dev/chains";
+import { Meter, MeterTestnet } from "@thirdweb-dev/chains";
 
 const supportedWallets = [
   metamaskWallet({ recommended: true }),
@@ -25,14 +25,14 @@ export default function Web3Provider({ children }) {
 
   return (
     <ThirdwebProvider
-      activeChain={ScrollSepoliaTestnet}
-      supportedChains={[Scroll, ScrollSepoliaTestnet]}
+      activeChain={MeterTestnet}
+      supportedChains={[Meter, MeterTestnet]}
       supportedWallets={supportedWallets}
       autoConnect={true}
       clientId={clientId}
       dAppMeta={{
-        name: "ThreeTube",
-        description: "ThreeTube is a decentralized video sharing platform.",
+        name: "ThirdTube",
+        description: "ThirdTube is a decentralized video sharing platform.",
         logoUrl: "https://example.com/logo.png",
         url: "https://example.com",
         isDarkMode: true

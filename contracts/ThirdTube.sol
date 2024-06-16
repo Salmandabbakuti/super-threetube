@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.24;
 
-contract ThreeTube {
+contract ThirdTube {
     uint256 public currentVideoId;
     uint256 public currentTipId;
 

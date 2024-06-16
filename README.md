@@ -83,6 +83,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [Next.js](https://nextjs.org/) - The React Framework for Production.
 - [Antd](https://ant.design/) - A design system for enterprise-level products. Create an efficient and enjoyable work experience.
 
+subql migrate -f https://github.com/Salmandabbakuti/zksync-threetube -d subgraph -o subquery
+
 ## Safety
 
 This is experimental software and subject to change over time.

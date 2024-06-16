@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const contractInstance = await ethers.deployContract("ThreeTube");
+  const contractInstance = await ethers.deployContract("ThirdTube");
 
   await contractInstance.waitForDeployment();
   return contractInstance;

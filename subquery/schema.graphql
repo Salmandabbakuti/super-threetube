@@ -1,0 +1,28 @@
+type Video @entity {
+  id: ID!
+  title: String! # string
+  description: String # string
+  category: String # string
+  location: String # string
+  thumbnailHash: String! # string
+  videoHash: String! # string
+  channel: Channel! # address
+  tipAmount: BigInt! # uint256
+  tips: [Tip!]! @derivedFrom(field: "video")
+  createdAt: BigInt! # uint256
+}
+
+type Channel @entity {
+  id: ID!
+  owner: String! # address
+  videos: [Video!]! @derivedFrom(field: "channel")
+  createdAt: BigInt! # uint256
+}
+
+type Tip @entity {
+  id: ID!
+  video: Video! # address
+  from: String! # address
+  amount: BigInt! # uint256
+  createdAt: BigInt! # uint256
+}

@@ -40,8 +40,8 @@ export default function SiteLayout({ children }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          ©{new Date().getFullYear()} Salman Dabbakuti. Powered by ZKSync &
-          TheGraph
+          ©{new Date().getFullYear()} Salman Dabbakuti. Powered by Meter &
+          Subquery
         </a>
         <p style={{ fontSize: "12px" }}>v0.0.1</p>
       </Footer>

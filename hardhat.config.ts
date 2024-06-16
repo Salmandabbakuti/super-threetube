@@ -11,40 +11,16 @@ const config: HardhatUserConfig = {
     localhost: {
       url: "http://127.0.0.1:8545"
     },
-    scrollSepolia: {
-      url: "https://sepolia-rpc.scroll.io",
-      chainId: 534351,
+    meter: {
+      url: "https://rpc.meter.io",
+      chainId: 82,
       accounts
     },
-    scroll: {
-      url: "https://rpc.scroll.io",
-      chainId: 534352,
+    meterTestnet: {
+      url: "https://rpctest.meter.io",
+      chainId: 83,
       accounts
     }
-  },
-  etherscan: {
-    // API key for Polygonscan
-    apiKey: {
-      scrollSepolia: process.env.ETHERSCAN_API_KEY || ""
-    },
-    customChains: [
-      {
-        network: "scrollSepolia",
-        chainId: 534351,
-        urls: {
-          apiURL: "https://api-sepolia.scrollscan.com/api",
-          browserURL: "https://sepolia.scrollscan.com/"
-        }
-      },
-      {
-        network: "scroll",
-        chainId: 534352,
-        urls: {
-          apiURL: "https://api.scrollscan.com/api",
-          browserURL: "https://scrollscan.com/"
-        }
-      }
-    ]
   }
 };
 

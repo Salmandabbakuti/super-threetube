@@ -30,7 +30,7 @@ export default function NavBar({ searchInput }) {
             }}
           />
           {/* Title */}
-          <h3 style={{ margin: 0, fontWeight: "bold" }}>ThreeTube</h3>
+          <h3 style={{ margin: 0, fontWeight: "bold" }}>ThirdTube</h3>
         </div>
       </Link>
       {/* Search Box */}

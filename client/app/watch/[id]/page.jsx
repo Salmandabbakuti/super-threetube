@@ -12,25 +12,19 @@ import {
   Popconfirm,
   Button,
   Input,
-  Empty,
-  Space,
-  Select,
-  Image
+  Empty
 } from "antd";
 import { HeartTwoTone, CheckCircleTwoTone } from "@ant-design/icons";
 import dayjs from "dayjs";
-import { useSigner, useAddress } from "@thirdweb-dev/react";
+import { useSigner } from "@thirdweb-dev/react";
+import { parseEther } from "@ethersproject/units";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Link from "next/link";
 import { subgraphClient as client, GET_VIDEOS_QUERY } from "@/app/utils";
 import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
 import VideoCard from "@/app/components/VideoCard";
-import {
-  supportedSuperTokens,
-  calculateFlowRateInWeiPerSecond,
-  cfav1ForwarderContract
-} from "@/app/utils";
+import { contract } from "@/app/utils";
 
 const { Title, Text, Paragraph } = Typography;
 dayjs.extend(relativeTime);
@@ -40,12 +34,8 @@ export default function VideoPage({ params: { id } }) {
   const [loading, setLoading] = useState(true);
   const [video, setVideo] = useState(null);
   const [tipAmountInput, setTipAmountInput] = useState(null);
-  const [streamInput, setStreamInput] = useState({
-    token: supportedSuperTokens[0].address
-  });
 
   const signer = useSigner();
-  const account = useAddress();
 
   const fetchVideo = async () => {
     setLoading(true);
@@ -89,40 +79,22 @@ export default function VideoPage({ params: { id } }) {
       });
   };
 
-  const handleTipCreatorWithStream = async () => {
-    if (!signer || !account)
-      return message.error("Please connect your wallet first");
-    if (!streamInput.flowRate || !streamInput.token)
-      return message.error("Please select a token and enter valid flowrate");
-    const sender = account;
-    const receiver = video?.channel?.id;
-    console.log("create inputs: ", {
-      ...streamInput,
-      sender,
-      receiver
-    });
+  const handleTipVideo = async () => {
+    console.log("tipAmountInput", tipAmountInput);
+    if (!signer) return message.error("Please connect your wallet first");
+    if (!tipAmountInput) return message.error("Please enter tip amount");
     try {
-      const flowRateInWeiPerSecond = calculateFlowRateInWeiPerSecond(
-        streamInput?.flowRate
-      );
-      console.log("flowRateInWeiPerSecond: ", flowRateInWeiPerSecond);
-      const tx = await cfav1ForwarderContract
-        .connect(signer)
-        .createFlow(
-          streamInput?.token,
-          sender,
-          receiver,
-          flowRateInWeiPerSecond,
-          "0x"
-        );
+      console.log("tipAmountInput", tipAmountInput);
+      const tipAmountinWei = parseEther(tipAmountInput);
+      console.log("tipAmountinWei", tipAmountinWei);
+      const tx = await contract.connect(signer).tipVideo(id, tipAmountinWei, {
+        value: tipAmountinWei
+      });
       await tx.wait();
-      message.success("Stream created successfully");
-      message.success("Thank you for supporting the creator");
+      message.success("Thank you for supporting the creator!");
     } catch (error) {
-      console.error("Failed to tip creator with stream:", error);
-      message.error(
-        "Failed to tip creator with stream. Make sure you have sufficient super token balance and try again."
-      );
+      console.error(error);
+      message.error("Failed to tip video. Please try again.");
     }
   };
 
@@ -208,91 +180,21 @@ export default function VideoPage({ params: { id } }) {
                     {dayjs(video?.createdAt * 1000).fromNow()}
                   </Text>
                   <Popconfirm
-                    position="bottom"
                     title={
-                      <label>
-                        Support the creator by tipping them with a monthly
-                        stream of tokens
-                      </label>
-                    }
-                    description={
                       <>
-                        <Space>
-                          <Select
-                            defaultValue={supportedSuperTokens[0].symbol}
-                            name="token"
-                            id="token"
-                            value={
-                              streamInput?.token ||
-                              supportedSuperTokens[0].address
-                            }
-                            style={{
-                              borderRadius: 10,
-                              marginBottom: 10
-                              // width: 120
-                            }}
-                            onChange={(val) =>
-                              setStreamInput({ ...streamInput, token: val })
-                            }
-                          >
-                            {supportedSuperTokens.map((token, i) => (
-                              <Select.Option value={token.address} key={i}>
-                                <Avatar
-                                  shape="circle"
-                                  size="small"
-                                  src={token.icon}
-                                />{" "}
-                                {token.symbol}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                          {/*  add flowrate input */}
-                          <Input
-                            type="number"
-                            name="flowRate"
-                            addonAfter="/month"
-                            placeholder="Flowrate in no. of tokens"
-                            value={streamInput?.flowRate}
-                            onChange={(e) =>
-                              setStreamInput({
-                                ...streamInput,
-                                flowRate: e.target.value
-                              })
-                            }
-                            style={{
-                              borderRadius: 10,
-                              marginBottom: 10
-                              // width: 120
-                            }}
-                          />
-                        </Space>
-                        <p>
-                          *You are Streaming {streamInput?.flowRate || 0}{" "}
-                          {
-                            supportedSuperTokens.find(
-                              (token) => token.address === streamInput?.token
-                            ).symbol
-                          }
-                          /mo to the video creator:{" "}
-                          {video?.channel?.id?.slice(0, 6) +
-                            "..." +
-                            video?.channel?.id?.slice(-4)}
-                        </p>
-                        <span style={{ marginLeft: "8px" }}>
-                          Powered by{" "}
-                          <a href="https://superfluid.finance/" target="_blank">
-                            <Image
-                              alt="sf_logo.svg"
-                              src="/superfluid_logo.svg"
-                              preview={false}
-                              width={100}
-                              height={50}
-                            />
-                          </a>
-                        </span>
+                        <label>Tip Amount</label>
+                        <Input
+                          type="number"
+                          size="large"
+                          addonAfter="ETH"
+                          value={tipAmountInput}
+                          placeholder="Enter tip amount"
+                          onChange={(e) => setTipAmountInput(e.target.value)}
+                        />
+                        <p>*100% of the tip goes to the video owner.</p>
                       </>
                     }
-                    onConfirm={handleTipCreatorWithStream}
+                    onConfirm={handleTipVideo}
                   >
                     <Button
                       icon={<HeartTwoTone twoToneColor="#eb2f96" />}
