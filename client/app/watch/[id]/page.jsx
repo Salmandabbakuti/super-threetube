@@ -20,7 +20,7 @@ import { useSigner } from "@thirdweb-dev/react";
 import { parseEther } from "@ethersproject/units";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Link from "next/link";
-import { subgraphClient as client, GET_VIDEOS_QUERY } from "@/app/utils";
+import { subqueryClient as client, GET_VIDEOS_QUERY } from "@/app/utils";
 import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
 import VideoCard from "@/app/components/VideoCard";
@@ -42,11 +42,15 @@ export default function VideoPage({ params: { id } }) {
     client
       .request(GET_VIDEOS_QUERY, {
         first: 1,
-        skip: 0,
-        where: { id }
+        offset: 0,
+        filter: {
+          id: {
+            equalTo: id
+          }
+        }
       })
       .then((data) => {
-        setVideo(data?.videos[0]);
+        setVideo(data?.videos?.nodes[0] || {});
         setLoading(false);
       })
       .catch((err) => {
@@ -61,15 +65,16 @@ export default function VideoPage({ params: { id } }) {
     client
       .request(GET_VIDEOS_QUERY, {
         first: 5,
-        skip: 0,
-        orderBy: "createdAt",
-        orderDirection: "desc",
-        where: {
-          id_not: idToExclude
+        offset: 0,
+        orderBy: "CREATED_AT_DESC",
+        filter: {
+          id: {
+            notEqualTo: idToExclude
+          }
         }
       })
       .then((data) => {
-        setRelatedVideos(data?.videos);
+        setRelatedVideos(data?.videos?.nodes || []);
         setLoading(false);
       })
       .catch((err) => {

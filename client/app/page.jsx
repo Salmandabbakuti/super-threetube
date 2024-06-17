@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { message, Row, Col, Card, Empty } from "antd";
 import Link from "next/link";
-import { subgraphClient as client, GET_VIDEOS_QUERY } from "./utils";
+import { subqueryClient as client, GET_VIDEOS_QUERY } from "./utils";
 import VideoCard from "./components/VideoCard";
 import styles from "./page.module.css";
 
@@ -17,18 +17,11 @@ export default function Home() {
     client
       .request(GET_VIDEOS_QUERY, {
         first: 200,
-        skip: 0,
-        orderBy: "createdAt",
-        orderDirection: "desc",
-        where: {
-          ...(titleSearchInput && { title_contains_nocase: titleSearchInput }),
-          ...(categorySearchInput && {
-            category_contains_nocase: categorySearchInput
-          })
-        }
+        offset: 0,
+        orderBy: "CREATED_AT_DESC"
       })
       .then((data) => {
-        setVideos(data?.videos);
+        setVideos(data?.videos?.nodes || []);
         setLoading(false);
       })
       .catch((error) => {

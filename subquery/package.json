@@ -27,10 +27,10 @@
   },
   "devDependencies": {
     "@subql/cli": "latest",
-    "@subql/types": "latest",
-    "@subql/testing": "latest",
     "@subql/node-ethereum": "latest",
+    "@subql/testing": "latest",
+    "@subql/types": "latest",
     "ethers": "^5.7.2",
-    "typescript": "latest"
+    "typescript": "^5.4.5"
   }
 }

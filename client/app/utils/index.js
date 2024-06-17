@@ -1,9 +1,6 @@
 import { Contract } from "@ethersproject/contracts";
 import { GraphQLClient, gql } from "graphql-request";
-import {
-  contractAddress,
-  subgraphUrl
-} from "./constants";
+import { contractAddress, subqueryUrl } from "./constants";
 
 const abi = [
   "function addVideo(string _title, string _description, string _category, string _location, string _thumbnailHash, string _videoHash)",
@@ -14,34 +11,40 @@ export const contract = new Contract(contractAddress, abi);
 export const GET_VIDEOS_QUERY = gql`
   query videos(
     $first: Int
-    $skip: Int
-    $orderBy: Video_orderBy
-    $orderDirection: OrderDirection
-    $where: Video_filter
+    $last: Int
+    $offset: Int
+    $before: Cursor
+    $after: Cursor
+    $orderBy: [VideosOrderBy!]
+    $filter: VideoFilter
   ) {
     videos(
       first: $first
-      skip: $skip
+      last: $last
+      offset: $offset
+      before: $before
+      after: $after
       orderBy: $orderBy
-      orderDirection: $orderDirection
-      where: $where
+      filter: $filter
     ) {
-      id
-      title
-      description
-      location
-      category
-      thumbnailHash
-      videoHash
-      tipAmount
-      channel {
+      nodes {
         id
-        owner
+        title
+        description
+        location
+        category
+        thumbnailHash
+        videoHash
+        tipAmount
         createdAt
+        channel {
+          id
+          owner
+          createdAt
+        }
       }
-      createdAt
     }
   }
 `;
 
-export const subgraphClient = new GraphQLClient(subgraphUrl);
+export const subqueryClient = new GraphQLClient(subqueryUrl);
