@@ -24,17 +24,17 @@ const project: EthereumProject = {
     file: "./schema.graphql"
   },
   network: {
-    chainId: "83",
-    endpoint: ["https://rpctest.meter.io"]
+    chainId: "82",
+    endpoint: ["https://rpc.meter.io"]
   },
   dataSources: [
     {
       kind: EthereumDatasourceKind.Runtime,
-      startBlock: 59835067,
+      startBlock: 56155184,
       options: {
         // Must be a key of assets
         abi: "ThirdTube",
-        address: "0xe04aa72b9fEa2219F300b3f8C3f9D1eafEfE382e"
+        address: "0x5AFB5a3e38252C08b6498306D131516d12B450B4"
       },
       assets: new Map([["ThirdTube", { file: "./abis/ThirdTube.json" }]]),
       mapping: {

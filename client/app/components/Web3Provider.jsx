@@ -25,7 +25,7 @@ export default function Web3Provider({ children }) {
 
   return (
     <ThirdwebProvider
-      activeChain={MeterTestnet}
+      activeChain={Meter}
       supportedChains={[Meter, MeterTestnet]}
       supportedWallets={supportedWallets}
       autoConnect={true}
