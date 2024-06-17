@@ -9,8 +9,8 @@ import styles from "./page.module.css";
 export default function Home() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [titleSearchInput, setTitleSearchInput] = useState("");
-  const [categorySearchInput, setCategorySearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("grace");
+  const [categoryFilter, setCategoryFilter] = useState("");
 
   const fetchVideos = async () => {
     setLoading(true);
@@ -18,7 +18,20 @@ export default function Home() {
       .request(GET_VIDEOS_QUERY, {
         first: 200,
         offset: 0,
-        orderBy: "CREATED_AT_DESC"
+        orderBy: "CREATED_AT_DESC",
+        ...(searchQuery && {
+          filter: {
+            or: {
+              title: { likeInsensitive: searchQuery },
+              description: {
+                likeInsensitive: searchQuery
+              },
+              category: {
+                likeInsensitive: searchQuery
+              }
+            }
+          }
+        })
       })
       .then((data) => {
         setVideos(data?.videos?.nodes || []);
@@ -33,7 +46,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchVideos();
-  }, [titleSearchInput, categorySearchInput]);
+  }, [searchQuery, categoryFilter]);
 
   return (
     <>
