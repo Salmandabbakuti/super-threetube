@@ -25,7 +25,11 @@ const project: EthereumProject = {
   },
   network: {
     chainId: "82",
-    endpoint: ["https://rpc.meter.io"]
+    endpoint: [
+      "https://rpc-meter.jellypool.xyz",
+      "https://meter.blockpi.network/v1/rpc/public",
+      "https://rpc.meter.io"
+    ]
   },
   dataSources: [
     {
