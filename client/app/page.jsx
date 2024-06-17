@@ -1,18 +1,22 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { message, Row, Col, Card, Empty } from "antd";
 import Link from "next/link";
 import { subgraphClient as client, GET_VIDEOS_QUERY } from "./utils";
 import VideoCard from "./components/VideoCard";
+import { SearchContext } from "./contexts/SearchContext";
 import styles from "./page.module.css";
 
 export default function Home() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [titleSearchInput, setTitleSearchInput] = useState("");
-  const [categorySearchInput, setCategorySearchInput] = useState("");
+  const { searchQuery, category } = useContext(SearchContext);
 
   const fetchVideos = async () => {
+    console.log("Fetching videos...");
+    console.log("searchQuery:", searchQuery);
+    console.log("categoryFilter:", category);
+
     setLoading(true);
     client
       .request(GET_VIDEOS_QUERY, {
@@ -21,9 +25,17 @@ export default function Home() {
         orderBy: "createdAt",
         orderDirection: "desc",
         where: {
-          ...(titleSearchInput && { title_contains_nocase: titleSearchInput }),
-          ...(categorySearchInput && {
-            category_contains_nocase: categorySearchInput
+          ...(category && {
+            category
+          }),
+          ...(searchQuery && {
+            or: [
+              { title_contains_nocase: searchQuery },
+              {
+                description_contains_nocase: searchQuery
+              },
+              { category_contains_nocase: searchQuery }
+            ]
           })
         }
       })
@@ -40,7 +52,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchVideos();
-  }, [titleSearchInput, categorySearchInput]);
+  }, [searchQuery, category]);
 
   return (
     <>

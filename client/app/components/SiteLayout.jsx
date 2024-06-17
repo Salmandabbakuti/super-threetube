@@ -21,7 +21,7 @@ export default function SiteLayout({ children }) {
           borderBottom: "1px solid #f0f0f0"
         }}
       >
-        <NavBar searchInput={(value) => console.log(value)} />
+        <NavBar />
       </Header>
       <Content
         style={{
