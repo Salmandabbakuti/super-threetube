@@ -69,9 +69,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ### Demo
 
-![Screen1](https://github.com/Salmandabbakuti/sf-socilafi-wavehack/assets/29351207/95361b5b-fe0d-4964-ae8a-73290406fd64)
+![Screen1](https://github.com/Salmandabbakuti/super-threetube/assets/29351207/b50b30bb-2a52-47b8-83fb-d195196a31b3)
 
-![Screen2](https://github.com/Salmandabbakuti/sf-socilafi-wavehack/assets/29351207/fb6c0219-6726-42d1-8fe4-6360c7bf0a5b)
+![Screen2](https://github.com/Salmandabbakuti/super-threetube/assets/29351207/058d9300-8c88-4d42-ae0e-f825a1ab0e0a)
 
 ## Change Log
 
