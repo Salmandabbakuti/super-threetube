@@ -25,18 +25,22 @@ export default function Home() {
         orderBy: "createdAt",
         orderDirection: "desc",
         where: {
-          ...(category && {
-            category
-          }),
-          ...(searchQuery && {
-            or: [
-              { title_contains_nocase: searchQuery },
-              {
-                description_contains_nocase: searchQuery
-              },
-              { category_contains_nocase: searchQuery }
-            ]
-          })
+          and: [
+            // Include category filter if category exists
+            ...(category ? [{ category }] : []),
+            // Include search query filter if searchQuery exists
+            ...(searchQuery
+              ? [
+                  {
+                    or: [
+                      { title_contains_nocase: searchQuery },
+                      { description_contains_nocase: searchQuery },
+                      { category_contains_nocase: searchQuery }
+                    ]
+                  }
+                ]
+              : [])
+          ]
         }
       })
       .then((data) => {
@@ -51,7 +55,9 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchVideos();
+    // Debounce search query to prevent too many requests 700ms
+    const debounceTimeoutId = setTimeout(fetchVideos, 600);
+    return () => clearTimeout(debounceTimeoutId);
   }, [searchQuery, category]);
 
   return (
