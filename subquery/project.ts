@@ -1,7 +1,7 @@
 import {
   EthereumProject,
   EthereumDatasourceKind,
-  EthereumHandlerKind
+  EthereumHandlerKind,
 } from "@subql/types-ethereum";
 
 const project: EthereumProject = {
@@ -13,23 +13,23 @@ const project: EthereumProject = {
   runner: {
     node: {
       name: "@subql/node-ethereum",
-      version: ">=3.0.0"
+      version: ">=3.0.0",
     },
     query: {
       name: "@subql/query",
-      version: "*"
-    }
+      version: "*",
+    },
   },
   schema: {
-    file: "./schema.graphql"
+    file: "./schema.graphql",
   },
   network: {
     chainId: "82",
     endpoint: [
       "https://rpc-meter.jellypool.xyz",
       "https://meter.blockpi.network/v1/rpc/public",
-      "https://rpc.meter.io"
-    ]
+      "https://rpc.meter.io",
+    ],
   },
   dataSources: [
     {
@@ -38,7 +38,7 @@ const project: EthereumProject = {
       options: {
         // Must be a key of assets
         abi: "ThirdTube",
-        address: "0x5AFB5a3e38252C08b6498306D131516d12B450B4"
+        address: "0x5AFB5a3e38252C08b6498306D131516d12B450B4",
       },
       assets: new Map([["ThirdTube", { file: "./abis/ThirdTube.json" }]]),
       mapping: {
@@ -49,22 +49,22 @@ const project: EthereumProject = {
             handler: "handleVideoAdded",
             filter: {
               topics: [
-                "VideoAdded(uint256,string,string,string,string,string,string,address,uint256)"
-              ]
-            }
+                "VideoAdded(uint256,string,string,string,string,string,string,address,uint256)",
+              ],
+            },
           },
           {
             kind: EthereumHandlerKind.Event,
             handler: "handleVideoTipped",
             filter: {
-              topics: ["VideoTipped(uint256,uint256,uint256,address)"]
-            }
-          }
-        ]
-      }
-    }
+              topics: ["VideoTipped(uint256,uint256,uint256,address)"],
+            },
+          },
+        ],
+      },
+    },
   ],
-  repository: "https://github.com/subquery/ethereum-subql-starter"
+  repository: "https://github.com/subquery/ethereum-subql-starter",
 };
 
 // Must set default to the project instance
