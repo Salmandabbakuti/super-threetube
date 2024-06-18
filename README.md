@@ -69,7 +69,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ### Demo
 
-![Screen1](https://github.com/Salmandabbakuti/super-threetube/assets/29351207/b50b30bb-2a52-47b8-83fb-d195196a31b3)
+![Screen1](https://github.com/Salmandabbakuti/super-threetube/assets/29351207/a99d782d-ffe0-49d8-8bfc-9076749b3be6)
 
 ![Screen2](https://github.com/Salmandabbakuti/super-threetube/assets/29351207/058d9300-8c88-4d42-ae0e-f825a1ab0e0a)
 
