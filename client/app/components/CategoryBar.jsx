@@ -20,7 +20,7 @@ import {
 import { SearchContext } from "../contexts/SearchContext";
 
 const categories = [
-  { key: "0", label: "All", value: "", icon: <AppstoreOutlined /> },
+  { key: "0", label: "All", value: "All", icon: <AppstoreOutlined /> },
   {
     key: "1",
     label: "Music",

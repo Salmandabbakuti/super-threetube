@@ -27,7 +27,7 @@ export default function Home() {
         where: {
           and: [
             // Include category filter if category exists
-            ...(category ? [{ category }] : []),
+            ...(category === "All" ? [] : [{ category }]),
             // Include search query filter if searchQuery exists
             ...(searchQuery
               ? [
