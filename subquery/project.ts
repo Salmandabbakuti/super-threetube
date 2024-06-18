@@ -26,7 +26,6 @@ const project: EthereumProject = {
   network: {
     chainId: "82",
     endpoint: [
-      "https://rpc-meter.jellypool.xyz",
       "https://meter.blockpi.network/v1/rpc/public",
       "https://rpc.meter.io",
     ],
@@ -45,6 +44,11 @@ const project: EthereumProject = {
         file: "./dist/index.js",
         handlers: [
           {
+            kind: EthereumHandlerKind.Call,
+            handler: "listEvent",
+          },
+          /*
+          {
             kind: EthereumHandlerKind.Event,
             handler: "handleVideoAdded",
             filter: {
@@ -60,6 +64,7 @@ const project: EthereumProject = {
               topics: ["VideoTipped(uint256,uint256,uint256,address)"],
             },
           },
+          */
         ],
       },
     },
