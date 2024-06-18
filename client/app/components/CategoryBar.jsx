@@ -1,4 +1,5 @@
 import { useContext, useRef } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Tag, Button } from "antd";
 import {
   LeftOutlined,
@@ -55,7 +56,10 @@ const categories = [
 
 export default function CategoryBar() {
   const { category, setCategory } = useContext(SearchContext);
+
   const containerRef = useRef(null);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const scroll = (direction) => {
     if (containerRef.current) {
@@ -104,7 +108,11 @@ export default function CategoryBar() {
         {categories.map((categoryItem) => (
           <Tag
             key={categoryItem.key}
-            onClick={() => setCategory(categoryItem.value)}
+            onClick={() => {
+              setCategory(categoryItem.value);
+              // if pathname is not the home page, navigate to home page
+              if (pathname !== "/") router.push("/");
+            }}
             style={{
               cursor: "pointer",
               padding: "3px 15px",
