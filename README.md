@@ -73,6 +73,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ![Screen2](https://github.com/Salmandabbakuti/sf-socilafi-wavehack/assets/29351207/fb6c0219-6726-42d1-8fe4-6360c7bf0a5b)
 
+## Change Log
+
+### v0.0.1
+
+- Initial release with basic features(Video List, Upload Video, Watch, Channels, Tip with Superfluid, Subgraph integration)
+
+### v0.0.2
+
+- Added Global Search, Categories Filtering
+
 ## Built With
 
 - [Scroll Blockchain](https://scroll.io/) - A decentralized, privacy-focused blockchain that enables scalable, low-cost, and private transactions. Seamlessly extends Ethereum’s capabilities through zero knowledge tech and EVM compatibility.
