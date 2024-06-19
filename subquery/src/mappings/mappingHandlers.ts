@@ -1,9 +1,16 @@
+import { EthereumLog } from "@subql/types-ethereum";
 import { Video, Channel, Tip } from "../types";
 import {
   VideoAddedLog,
-  VideoTippedLog
+  VideoTippedLog,
 } from "../types/abi-interfaces/ThirdTube";
 import assert from "assert";
+
+export async function listEvent(log: EthereumLog): Promise<void> {
+  logger.info("Event at block: " + log.blockNumber.toString());
+  logger.info(JSON.stringify(log));
+  logger.info(JSON.stringify(log.args));
+}
 
 export async function handleVideoAdded(log: VideoAddedLog): Promise<void> {
   assert(log.args, "No log.args");
@@ -13,7 +20,7 @@ export async function handleVideoAdded(log: VideoAddedLog): Promise<void> {
     channel = Channel.create({
       id: log.args.owner,
       owner: log.args.owner,
-      createdAt: log.block.timestamp
+      createdAt: log.block.timestamp,
     });
     await channel.save();
   }
@@ -27,7 +34,7 @@ export async function handleVideoAdded(log: VideoAddedLog): Promise<void> {
     videoHash: log.args.videoHash,
     channelId: log.args.owner,
     tipAmount: BigInt(0),
-    createdAt: log.block.timestamp
+    createdAt: log.block.timestamp,
   });
   await video.save();
 }
@@ -46,7 +53,7 @@ export async function handleVideoTipped(log: VideoTippedLog): Promise<void> {
     videoId: log.args.videoId.toString(),
     amount: BigInt(log.args.amount.toString()),
     from: log.args.from,
-    createdAt: log.block.timestamp
+    createdAt: log.block.timestamp,
   });
   await tip.save();
 }
