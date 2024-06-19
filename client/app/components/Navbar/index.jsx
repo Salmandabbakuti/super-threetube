@@ -1,12 +1,16 @@
 "use client";
+import { useContext, useState } from "react";
 import { Input, Button } from "antd";
 import Link from "next/link";
 import { SearchOutlined, PlayCircleTwoTone } from "@ant-design/icons";
 import UserDrawer from "./UserDrawer";
 import UploadDrawer from "./UploadDrawer";
+import { SearchContext } from "@/app/contexts/SearchContext";
 import "antd/dist/reset.css";
 
-export default function NavBar({ searchInput }) {
+export default function NavBar() {
+  const [searchInput, setSearchInput] = useState("");
+  const { searchQuery, setSearchQuery } = useContext(SearchContext);
   return (
     <>
       <Link href="/">
@@ -37,13 +41,20 @@ export default function NavBar({ searchInput }) {
       <Input
         size="large"
         prefix={<SearchOutlined />}
+        value={searchQuery}
         placeholder="Search"
         style={{
           width: "40%",
           margin: "0 20px",
           borderRadius: "20px"
         }}
-        onChange={(e) => searchInput(e.target.value)}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        // uncomment this code to enable search on pressing enter
+        // and set onchange to setSearchInput
+        // onPressEnter={() => {
+        //   console.log("Search for:", searchQuery);
+        //   setSearchQuery(searchInput);
+        // }}
       />
       <div
         style={{

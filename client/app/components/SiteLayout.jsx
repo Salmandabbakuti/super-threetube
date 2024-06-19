@@ -1,6 +1,7 @@
 "use client";
 import { Layout } from "antd";
 import NavBar from "./Navbar";
+import CategoryBar from "./CategoryBar";
 import "antd/dist/reset.css";
 
 const { Header, Footer, Content } = Layout;
@@ -21,7 +22,7 @@ export default function SiteLayout({ children }) {
           borderBottom: "1px solid #f0f0f0"
         }}
       >
-        <NavBar searchInput={(value) => console.log(value)} />
+        <NavBar />
       </Header>
       <Content
         style={{
@@ -32,6 +33,7 @@ export default function SiteLayout({ children }) {
           maxHeight: "100%"
         }}
       >
+        <CategoryBar />
         {children}
       </Content>
       <Footer style={{ textAlign: "center" }}>
