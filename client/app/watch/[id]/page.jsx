@@ -12,7 +12,8 @@ import {
   Popconfirm,
   Button,
   Input,
-  Empty
+  Empty,
+  List
 } from "antd";
 import { HeartTwoTone, CheckCircleTwoTone } from "@ant-design/icons";
 import dayjs from "dayjs";
@@ -23,7 +24,7 @@ import Link from "next/link";
 import { subqueryClient as client, GET_VIDEOS_QUERY } from "@/app/utils";
 import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
-import VideoCard from "@/app/components/VideoCard";
+import RelatedVideoCard from "@/app/components/RelatedVideoCard";
 import { contract } from "@/app/utils";
 
 const { Title, Text, Paragraph } = Typography;
@@ -219,33 +220,38 @@ export default function VideoPage({ params: { id } }) {
           <Divider plain />
         </Col>
         <Col xs={24} md={8}>
-          <Title level={4}>Related Videos</Title>
-          {loading
-            ? Array.from({ length: 5 }).map((_, index) => (
-                <Card
-                  key={index}
-                  loading
-                  style={{ borderRadius: 20 }}
-                  cover={
-                    <div
-                      style={{
-                        height: 150,
-                        borderRadius: 20
-                      }}
-                    />
-                  }
-                >
-                  <Card.Meta avatar={<Skeleton.Avatar />} />
-                </Card>
-              ))
-            : relatedVideos.map((relatedVideo) => (
-                <Link
-                  key={relatedVideo?.id}
-                  href={`/watch/${relatedVideo?.id}`}
-                >
-                  <VideoCard video={relatedVideo} />
-                </Link>
-              ))}
+          {loading ? (
+            Array.from({ length: 5 }).map((_, index) => (
+              <Card
+                key={index}
+                loading
+                style={{ borderRadius: 20 }}
+                cover={
+                  <div
+                    style={{
+                      height: 150,
+                      borderRadius: 20
+                    }}
+                  />
+                }
+              >
+                <Card.Meta avatar={<Skeleton.Avatar />} />
+              </Card>
+            ))
+          ) : (
+            <List
+              header={<Title level={5}>Related Videos</Title>}
+              itemLayout="vertical"
+              loading={loading}
+              size="small"
+              dataSource={relatedVideos}
+              renderItem={(video) => (
+                <List.Item>
+                  <RelatedVideoCard video={video} />
+                </List.Item>
+              )}
+            />
+          )}
         </Col>
       </Row>
     </div>

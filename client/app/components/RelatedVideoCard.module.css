@@ -1,0 +1,29 @@
+.cardContent {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+}
+
+.thumbnail {
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.metaContainer {
+  margin: 0 0 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 4px 0;
+  white-space: wrap;
+}
+
+.text {
+  color: #888;
+}
