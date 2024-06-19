@@ -20,22 +20,31 @@ export default function Home() {
     setLoading(true);
     client
       .request(GET_VIDEOS_QUERY, {
-        first: 200,
+        first: 100,
         offset: 0,
         orderBy: "CREATED_AT_DESC",
-        ...(searchQuery && {
-          filter: {
-            or: {
-              title: { likeInsensitive: searchQuery },
-              description: {
-                likeInsensitive: searchQuery
-              },
-              category: {
-                likeInsensitive: searchQuery
-              }
-            }
-          }
-        })
+        // sq wont allow empty filter object
+        // if category is All, 'and' will spread an empty array which means empty
+        // if searchQuery is empty, 'or' will spread an empty array which means empty
+        // if both are not empty, it will filter by both
+        filter: {
+          and: [
+            ...(category === "All"
+              ? []
+              : [{ category: { likeInsensitive: `%${category}%` } }]),
+            ...(searchQuery
+              ? [
+                  {
+                    or: [
+                      { title: { likeInsensitive: `%${searchQuery}%` } },
+                      { description: { likeInsensitive: `%${searchQuery}%` } },
+                      { category: { likeInsensitive: `%${searchQuery}%` } }
+                    ]
+                  }
+                ]
+              : [])
+          ]
+        }
       })
       .then((data) => {
         setVideos(data?.videos?.nodes || []);
