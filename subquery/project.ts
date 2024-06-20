@@ -25,20 +25,16 @@ const project: EthereumProject = {
   },
   network: {
     chainId: "82",
-    endpoint: [
-      "https://rpc-meter.jellypool.xyz",
-      "https://meter.blockpi.network/v1/rpc/public",
-      "https://rpc.meter.io"
-    ]
+    endpoint: ["https://rpc.meter.io"]
   },
   dataSources: [
     {
       kind: EthereumDatasourceKind.Runtime,
-      startBlock: 56155184,
+      startBlock: 56325881,
       options: {
         // Must be a key of assets
         abi: "ThirdTube",
-        address: "0x5AFB5a3e38252C08b6498306D131516d12B450B4"
+        address: "0xbEF33B12a763a912f9BbF828A43A88F49d879D0C"
       },
       assets: new Map([["ThirdTube", { file: "./abis/ThirdTube.json" }]]),
       mapping: {
