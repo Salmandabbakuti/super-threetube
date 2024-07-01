@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Drawer, Form, Input, Select, Space, Button, message } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, VideoCameraAddOutlined } from "@ant-design/icons";
 import { useSigner } from "@thirdweb-dev/react";
 import { contract } from "@/app/utils";
 import Image from "next/image";
@@ -61,7 +61,8 @@ export default function UploadDrawer() {
     <>
       <Button
         type="primary"
-        icon={<PlusOutlined />}
+        icon={<VideoCameraAddOutlined />}
+        size="large"
         shape="circle"
         onClick={() => setDrawerOpen(true)}
       />

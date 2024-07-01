@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Drawer, Menu, Avatar } from "antd";
+import { Drawer, Menu, Avatar, Button } from "antd";
+import { Address } from "@coinbase/onchainkit/identity";
 import {
   PlayCircleOutlined,
   SettingOutlined,
@@ -14,12 +15,19 @@ export default function UserDrawer() {
 
   return (
     <>
-      <Avatar
-        size={"large"}
-        src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${account}`}
-        onClick={() => setDrawerOpen(true)}
-        style={{ cursor: "pointer" }}
-      />
+      {account ? (
+        <Button shape="round" onClick={() => setDrawerOpen(true)}>
+          <Address address={account} />
+        </Button>
+      ) : (
+        <Avatar
+          size={"large"}
+          src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${account}`}
+          onClick={() => setDrawerOpen(true)}
+          style={{ cursor: "pointer" }}
+        />
+      )}
+
       <Drawer
         title={
           <ConnectWallet

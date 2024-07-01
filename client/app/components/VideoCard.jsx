@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Avatar, Typography, Image } from "antd";
+import { Address } from "@coinbase/onchainkit/identity";
 import { CheckCircleTwoTone } from "@ant-design/icons";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -41,13 +42,8 @@ export default function VideoCard({ video }) {
         }
         description={
           <div>
-            <Text className={styles.text}>
-              {video?.channel?.id?.slice(0, 9) +
-                "..." +
-                video?.channel?.id?.slice(-5) +
-                " "}
-              <CheckCircleTwoTone twoToneColor="#52c41a" />
-            </Text>
+            <Address address={video?.channel?.id} />{" "}
+            <CheckCircleTwoTone twoToneColor="#52c41a" />
             <Text className={styles.text}>
               {video?.category +
                 " • " +

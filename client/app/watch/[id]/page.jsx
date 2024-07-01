@@ -24,6 +24,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import Link from "next/link";
 import { subgraphClient as client, GET_VIDEOS_QUERY } from "@/app/utils";
 import Plyr from "plyr-react";
+import { Address } from "@coinbase/onchainkit/identity";
 import "plyr-react/plyr.css";
 import VideoCard from "@/app/components/VideoCard";
 import {
@@ -201,7 +202,7 @@ export default function VideoPage({ params: { id } }) {
                   src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${video?.channel?.id}`}
                 />
                 <div style={{ marginLeft: "10px" }}>
-                  <Text>{video?.channel?.id}</Text>{" "}
+                  <Address address={video?.channel?.id} />{" "}
                   <CheckCircleTwoTone twoToneColor="#52c41a" />
                   <br />
                   <Text type="secondary">
@@ -274,9 +275,7 @@ export default function VideoPage({ params: { id } }) {
                             ).symbol
                           }
                           /mo to the video creator:{" "}
-                          {video?.channel?.id?.slice(0, 6) +
-                            "..." +
-                            video?.channel?.id?.slice(-4)}
+                          <Address address={video?.channel?.id} />
                         </p>
                         <span style={{ marginLeft: "8px" }}>
                           Powered by{" "}
